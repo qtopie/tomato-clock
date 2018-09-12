@@ -1,0 +1,24 @@
+<ActionBar title="TomatoClock" class="action-bar"></ActionBar>
+<StackLayout class="page">
+    <!-- <SVGImage src="~/images/nativescript.svg" height="100" width="100"></SVGImage> -->
+    <StackLayout *ngIf="workTime; then working else resting"></StackLayout>
+    <ng-template #working>
+        <TextView text="Working" editable="false"></TextView>
+    </ng-template>
+    <ng-template #resting>
+        <TextView text="Resting" editable="false"></TextView>
+    </ng-template>
+
+    <TextView text="Left time is {{ left }}" editable="false"></TextView>
+    <Button class="btn btn-primary btn-active" id="resetButton" text="Reset" (tap)="reset()"></Button>
+    <StackLayout *ngIf="counting; then stopButton else startButton"></StackLayout>
+    <ng-template #startButton>
+        <Button class="btn btn-primary btn-active" id="startButton" text="Start" (tap)="start()"></Button>
+    </ng-template>
+    <ng-template #stopButton>
+        <Button class="btn btn-primary btn-active" id="stopButton" text="Pause" (tap)="stop()"></Button>
+    </ng-template>
+    <!-- <Progress [value]="progressValue" (valueChanged)="onValueChanged($event)" maxValue="100" class="m-20"></Progress> -->
+    <Progress [value]="70" (valueChanged)="onValueChanged($event)" maxValue="100" class="m-20"></Progress>
+    <TimePicker (loaded)="onPickerLoaded($event)" (timeChange)="onTimeChanged($event)" verticalAlignment="center" class="m-15"></TimePicker>
+</StackLayout>
